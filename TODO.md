@@ -9,7 +9,6 @@
   - how many digits after the comma? 8?
 
   - no update when a transaction is active - Done, handled by state = 'idle|update|trade'
-- no update when a transaction is active - Done
 
 ## GUI
 
