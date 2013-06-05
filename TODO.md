@@ -2,12 +2,14 @@
 
 ## General points
 
-  - GUI needs to be a seperate thread
-  - exchange system is a seperate thread
-  - updater is a seperate thread and locks the GUI when active
-  - no update when a transaction is active - Done
+  - Threading:
+    - GUI needs to be a seperate thread
+    - exchange system is a seperate thread
+    - updater is a seperate thread and locks the GUI when active
   - how many digits after the comma? 8?
 
+  - no update when a transaction is active - Done, handled by state = 'idle|update|trade'
+- no update when a transaction is active - Done
 
 ## GUI
 
