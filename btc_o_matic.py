@@ -103,8 +103,8 @@ class BTCOMatic(object):
         self._testnet = testnet
         self._verbose = verbose
         self._last_update = 0
-        self._bid = None
-        self._ask = None
+        self._bid = 0
+        self._ask = 0
 
         #TODO: read wallet ids from config file
         self._btcwallet = Wallet.BTCWallet('o-matic')
@@ -112,7 +112,7 @@ class BTCOMatic(object):
         self._chartdl = ChartDownloader(self)
         self._chartdl.setDaemon(True)
 
-        self.state = 'update'
+        self.state = 'idle'
 
     def loop(self):
         """
@@ -220,7 +220,7 @@ class BTCOMatic(object):
         # updating the screen and finally drawing it
         pygame.display.update()
         pygame.display.flip()
-        self._fps_clock.tick(30)
+        self._fps_clock.tick(3)
 
 
 if __name__ == '__main__':
