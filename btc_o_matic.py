@@ -116,15 +116,6 @@ class BTCOMatic(object):
 
         self.state = 'idle'
     
-        if self._btcwallet.is_available():
-            print "BTC Daemon running"  
-
-        print self._btcwallet.get_temp_wallet_address()
-
-        testaddress = "mgbDmJXBayRrxtAcYppDkTaVShvaAA5g2v"
-        if self._btcwallet.is_address_valid(testaddress):
-           self._btcwallet.transfer_amount(testaddress, 0.1)
-
     def loop(self):
         """
         Queries for user interaction and serves cool things.
