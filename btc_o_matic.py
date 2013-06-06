@@ -109,10 +109,20 @@ class BTCOMatic(object):
         #TODO: read wallet ids from config file
         self._btcwallet = Wallet.BTCWallet('o-matic')
         self._eurowallet = Wallet.EuroWallet()
+        self._cbasewallet = Wallet.EuroWallet()
         self._chartdl = ChartDownloader(self)
         self._chartdl.setDaemon(True)
 
         self.state = 'idle'
+    
+        if self._btcwallet.is_available():
+            print "BTC Daemon running"  
+
+        print self._btcwallet.get_temp_wallet_address()
+
+        testaddress = "mgbDmJXBayRrxtAcYppDkTaVShvaAA5g2v"
+        if self._btcwallet.is_address_valid(testaddress):
+           self._btcwallet.transfer_amount(testaddress, 0.1)
 
     def loop(self):
         """
@@ -171,13 +181,13 @@ class BTCOMatic(object):
 
         if self._verbose:
             # display the wallets
-            wallet1_surface = FONT.render('Euro:  %f' % self._eurowallet.money,
+            wallet1_surface = FONT.render('Euro:  %f' % self._eurowallet.get_balance(),
                                           False, WHITE)
             wallet1_rect = wallet1_surface.get_rect()
             wallet1_rect.bottomleft = (0, self.surface.get_height())
             self.surface.blit(wallet1_surface, wallet1_rect)
 
-            wallet2_surface = FONT.render('BTC: %f' % self._btcwallet.money,
+            wallet2_surface = FONT.render('BTC: %f' % self._btcwallet.get_balance(),
                                       False, WHITE)
             wallet2_rect = wallet2_surface.get_rect()
             wallet2_rect.bottomleft = (0, wallet1_rect.top - 2)
