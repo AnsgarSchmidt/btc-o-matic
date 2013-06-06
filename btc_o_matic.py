@@ -65,22 +65,23 @@ class ChartDownloader(threading.Thread):
             # if the mashine is idling we update the rates
             if self.parent.state == 'idle':
                 self.parent.state = 'update'
-                opener = urllib.FancyURLopener({})
-                f = opener.open(self.url)
-                charts = json.loads(f.read())
-                markets = [market for market in charts
-                           if market[u'currency'] == u'EUR'
-                           and market[u'volume'] > 10]
-                ask_numerator = sum(market[u'ask'] * market[u'volume'] for market in markets)
-                bid_numerator = sum(market[u'bid'] * market[u'volume'] for market in markets)
-                divisor = sum(market[u'volume'] for market in markets)
-                self.parent._ask = (ask_numerator / divisor) if divisor != 0 else None
-                self.parent._bid = (bid_numerator / divisor) if divisor != 0 else None
+                #opener = urllib.FancyURLopener({})
+                #f = opener.open(self.url)
+                #charts = json.loads(f.read())
+                #markets = [market for market in charts
+                #           if market[u'currency'] == u'EUR'
+                #           and market[u'volume'] > 10]
+                #ask_numerator = sum(market[u'ask'] * market[u'volume'] for market in markets)
+                #bid_numerator = sum(market[u'bid'] * market[u'volume'] for market in markets)
+                #divisor = sum(market[u'volume'] for market in markets)
+                #self.parent._ask = (ask_numerator / divisor) if divisor != 0 else None
+                #self.parent._bid = (bid_numerator / divisor) if divisor != 0 else None
+                self.parent._ask = 23.421337 + time.time() / 1000000
+                self.parent._bid = 42.231337 + time.time() / 1000000
                 self.parent._last_update = time.time()
 
                 # reset to idle state and wait for the next update
                 self.parent.state = 'idle'
-                print 'JSON update()'
                 time.sleep(900)
             else:
                 # there is a transaction going on atm so we wait a little bit
