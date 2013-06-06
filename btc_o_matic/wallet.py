@@ -55,3 +55,16 @@ class EuroWallet(Wallet):
 
     def get_balance(self):
         return self.money
+
+    def deposit(self, amount):
+        self.money += amount
+
+    def withdraw(self, amount):
+        if self.money < amount:
+           raise NotEnoughtBalanceError()
+        self.money -= amount
+
+class NotEnoughtBalanceError(Exception):
+    def __init__(self):
+        pass
+
